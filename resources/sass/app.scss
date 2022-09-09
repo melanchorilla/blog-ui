@@ -1,0 +1,17 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Datatables
+@import url('/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css');
+
+// select2
+@import '~select2/src/scss/core';
+
+// trix editor
+@import url('/node_modules/trix/dist/trix.css');
