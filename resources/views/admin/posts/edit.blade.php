@@ -22,6 +22,17 @@
                         <span class="mt-2 text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+                {{-- jika ada gambar --}}
+                @if($post->image)
+                <div class="row">
+                    <div class="col-md-6">
+                        <div style="max-height: 350px; overflow: hidden;">
+                            <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                @endif
+                {{-- end jika ada gambar --}}
                 <div class="form-group">
                     <label for="image">Upload an image</label>
                     <input type="file" name="image" class="form-control-file @error('image') is-invalid @enderror" id="image">
