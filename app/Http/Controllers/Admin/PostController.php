@@ -32,17 +32,17 @@ class PostController extends Controller
         ]);
     }
 
- 
+
     public function store()
     {
-        if(request()->file('image') == null) {
+        if (request()->file('image') == null) {
             $image = null;
         } else {
             $image = request()->file('image')->store('images/post');
         }
 
         request()->validate([
-            'title' => 'required|unique:posts,title',
+            'title' => 'required',
             'post' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,gif',
             'tags' => 'required|array',
@@ -90,17 +90,17 @@ class PostController extends Controller
     public function update(Post $post)
     {
         request()->validate([
-            'title' => 'required|unique:posts,title',
+            'title' => 'required',
             'post' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,gif',
             'tags' => 'required|array',
             'category_id' => 'required'
         ]);
 
-        if(request('image')) {
+        if (request('image')) {
             Storage::delete($post->image);
             $image = request()->file('image')->store('images/post');
-        } else if($post->image) {
+        } else if ($post->image) {
             $image = $post->image;
         } else {
             $image = null;
@@ -114,7 +114,7 @@ class PostController extends Controller
             'category_id' => request('category_id'),
             'updated_at' => date("Y-m-d H:i:s")
         ]);
-        
+
 
         $post->tags()->sync(request('tags'));
 
@@ -123,7 +123,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        if($post->image) {
+        if ($post->image) {
             Storage::delete($post->image);
         }
         $post->tags()->detach();
@@ -136,14 +136,13 @@ class PostController extends Controller
         $post = Post::with('category')->get();
         return Datatables::of($post)
             ->addIndexColumn()
-            ->addColumn('category', function($post) {
+            ->addColumn('category', function ($post) {
                 return $post->category->name;
             })
-            ->addColumn('action', function($post) {
-                return '<a href="'.  route("posts.edit", $post->id)  .'" class="btn btn-primary btn-xs"><i class ="glyphicon glyphicon-edit"></i> Edit</a> ' .
+            ->addColumn('action', function ($post) {
+                return '<a href="' .  route("posts.edit", $post->id)  . '" class="btn btn-primary btn-xs"><i class ="glyphicon glyphicon-edit"></i> Edit</a> ' .
                     '<a onclick="deleteData(' . $post->id . ')" class="btn btn-danger btn-xs"><i class ="glyphicon glyphicon-trash"></i> Delete</a> ';
             })
             ->rawColumns(['action'])->make(true);
-
     }
 }

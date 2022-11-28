@@ -10,49 +10,41 @@
             <!-- Featured blog post-->
             <div class="card mb-4">
                 @if($posts[0]->image)
-                <div style="max-height: 350px; overflow: hidden;">
-                    <img src="{{ asset('storage/' . $posts[0]->image) }}" alt="{{ $posts[0]->category->name }}" class="img-fluid">
-                    </div>
+                    <img src="{{ asset('storage/' . $posts[0]->image) }}" alt="{{ $posts[0]->category->name }}" class="card-img-top">
                 @else
-                    <img src="https://source.unsplash.com/850x400?{{ $posts[0]->category->name }}" alt="{{ $posts[0]->category->name }}" class="img-fluid">
+                    <img src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="{{ $posts[0]->category->name }}" class="card-img-top">
                 @endif
                 <div class="card-body">
                     <div class="small text-muted">{{ $posts[0]->created_at->diffForHumans() }}</div>
                     <h2 class="card-title">{{ $posts[0]->title }}</h2>
-                    <p class="card-text">{!! Str::limit($posts[0]->post, 100) !!}</p>
-                    <a class="btn btn-primary" href="{{ route('post.show', $posts[0]->slug) }}">Read more →</a>
+                    {{-- <p class="card-text">{!! Str::limit($posts[0]->post, 100) !!}</p> --}}
+                    <a class="btn btn-primary mt-2" href="{{ route('post.show', $posts[0]->slug) }}">Read more →</a>
                 </div>
             </div>
-
             @endif
-
 
             <!-- Nested row for non-featured blog posts-->
             <div class="row">
-
-                @foreach($posts->skip(1) as $post)
-                    <div class="col-lg-6">
-                        <!-- Blog post-->
-                        <div class="card mb-4">
-                            @if($post->image)
-                                <div style="max-height: 350px; overflow: hidden;">
-                                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}" class="img-fluid">
-                                </div>
-                            @else
-                                <img src="https://source.unsplash.com/1200x400?{{ $post->category->name }}" alt="{{ $post->category->name }}" class="img-fluid">
-                            @endif
-                            <div class="card-body">
-                                <div class="small text-muted">{{ $post->created_at->diffForHumans() }}</div>
-                                <h2 class="card-title h4">{{ $post->title }}</h2>
-                                <p class="card-text">{!! Str::limit($post->post, 50) !!}</p>
-                                <a class="btn btn-primary" href="{{ route('post.show', $post->slug) }}">Read more →</a>
-                            </div>
-                        </div>
+                @foreach ($posts->skip(1) as $post)
+                <div class="col-lg-6">
+                    @if($post->image)
+                        <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}" class="card-img-top">
+                    @else
+                        <img src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="{{ $post->category->name }}" class="card-img-top">
+                    @endif
+                    <div class="card-body">
+                        <div class="small text-muted">{{ $post->created_at->diffForHumans() }}</div>
+                        <h2 class="card-title h4">{{ $post->title }}</h2>
+                        {{-- <p class="card-text">{!! Str::limit($post->post, 50) !!}</p> --}}
+                        <a class="btn btn-primary mt-2" href="{{ route('post.show', $post->slug) }}">Read more →</a>
                     </div>
+                </div>      
                 @endforeach
-
-                {{ $posts->links() }}
+                <div class="my-2">
+                    {{ $posts->links() }}
+                </div>
             </div>
+
         </div>
         <!-- Side widgets-->
         <div class="col-lg-4">
@@ -104,11 +96,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Side widget-->
-            {{-- <div class="card mb-4">
-                <div class="card-header">Side Widget</div>
-                <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
-            </div> --}}
         </div>
     @else
         <p class="text-center fs-4">No post found.</p>

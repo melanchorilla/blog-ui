@@ -1,6 +1,6 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
-        <ul class="nav flex-column">
+        <ul class="nav flex-column mt-5">
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('admin/dashboard') || request()->is('admin/dashboard/*') ? 'active' : ''}}" href="{{ route("dashboard") }}">
                 <span data-feather="home"></span>

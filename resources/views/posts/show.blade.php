@@ -8,11 +8,11 @@
             <p>By: <a href="{{ route('posts') . "?author=" . $post->author->name }}" class="text-decoration-none">{{ $post->user->name }}</a> | Category: <a href="{{ route('posts') . "?category=" . $post->category->slug }}" class="text-decoration-none">{{ $post->category->name }}</a></p>
             
             @if($post->image)
-                <div style="max-height: 350px; overflow: hidden;">
+                <div style="max-height: 350px; overflow: hidden;" class="text-center">
                     <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}" class="img-fluid">
                 </div>
             @else
-                <img src="https://source.unsplash.com/1200x400?{{ $post->category->name }}" alt="{{ $post->category->name }}" class="img-fluid">
+                <img src="https://dummyimage.com/1200x400/dee2e6/6c757d.jpg" alt="{{ $post->category->name }}" class="img-fluid">
             @endif
 
             <article class="my-3 fs-5">
